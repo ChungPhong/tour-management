@@ -93,6 +93,29 @@ const deleteItemInCart = () => {
 };
 // Hết Xóa sản phẩm trong giỏ hàng
 
+// Cập nhật số lượng sản phẩm trong giỏ hàng
+const updateQuantityItemInCart = () => {
+  const listInputQuantity = document.querySelectorAll("input[name='quantity']");
+  if (listInputQuantity.length > 0) {
+    listInputQuantity.forEach((input) => {
+      input.addEventListener("change", () => {
+        const tourId = parseInt(input.getAttribute("item-id"));
+        const quantity = parseInt(input.value);
+        if (tourId && quantity > 0) {
+          const cart = JSON.parse(localStorage.getItem("cart"));
+          const itemUpdate = cart.find((item) => item.tourId == tourId);
+          if (itemUpdate) {
+            itemUpdate.quantity = quantity;
+            localStorage.setItem("cart", JSON.stringify(cart));
+            window.location.reload();
+          }
+        }
+      });
+    });
+  }
+};
+// Hết Cập nhật số lượng sản phẩm trong giỏ hàng
+
 // Vẽ tour vào giỏ hàng
 const tableCart = document.querySelector("[table-cart]");
 if (tableCart) {
@@ -136,9 +159,12 @@ if (tableCart) {
       );
       const tbody = tableCart.querySelector("tbody");
       tbody.innerHTML = htmlArray.join("");
+
       const totalPrice = document.querySelector("[total-price]");
       totalPrice.innerHTML = data.total.toLocaleString();
+
       deleteItemInCart();
+      updateQuantityItemInCart();
     });
 }
 // Hết Vẽ tour vào giỏ hàng
