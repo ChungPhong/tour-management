@@ -1,5 +1,5 @@
 import express, { Express } from "express";
-
+import moment from "moment";
 import dotenv from "dotenv";
 import { routesClient } from "./routes/client/index.route";
 
@@ -13,7 +13,10 @@ app.use(express.static("public"));
 app.set("views", "./views");
 app.set("view engine", "pug");
 
-//Client Routes
+//App Local Variables
+app.locals.moment = moment;
+
+//Client Routes 
 routesClient(app);
 
 app.listen(port, () => {
