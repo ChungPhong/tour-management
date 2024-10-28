@@ -16,32 +16,49 @@ var imagesMain = new Swiper(".imagesMain", {
 });
 // End Slider tour-images
 
+// alert-add-cart-success
+const alertAddCartSuccess = () => {
+  const elementAlert = document.querySelector("[alert-add-cart-success]");
+  if (elementAlert) {
+    elementAlert.classList.remove("alert-hidden");
+    setTimeout(() => {
+      elementAlert.classList.add("alert-hidden");
+    }, 3000);
+    const closeAlert = elementAlert.querySelector("[close-alert]");
+    closeAlert.addEventListener("click", () => {
+      elementAlert.classList.add("alert-hidden");
+    });
+  }
+};
+// End alert-add-cart-success
+
 // Giỏ hàng
 //Nếu chưa có giỏ hàng trong localSorage thì tạo giỏ hàng mới cho người dùng
 const cart = localStorage.getItem("cart");
-if(!cart) {
+if (!cart) {
   localStorage.setItem("cart", JSON.stringify([]));
 }
 //Thêm tour vào giỏ hàng
 const formAddToCart = document.querySelector("[form-add-to-cart]");
-if(formAddToCart) {
+if (formAddToCart) {
   formAddToCart.addEventListener("submit", (event) => {
     event.preventDefault();
     const tourId = parseInt(formAddToCart.getAttribute("tour-id"));
     const quantity = parseInt(formAddToCart.quantity.value);
-    if(tourId && quantity > 0) {
+    if (tourId && quantity > 0) {
       const cart = JSON.parse(localStorage.getItem("cart"));
-      const existTour = cart.find(item => item.tourId == tourId);
-      if(existTour) {
+      const existTour = cart.find((item) => item.tourId == tourId);
+      if (existTour) {
         existTour.quantity = existTour.quantity + quantity;
       } else {
         cart.push({
           tourId: tourId,
-          quantity: quantity
+          quantity: quantity,
         });
       }
       localStorage.setItem("cart", JSON.stringify(cart));
+      alertAddCartSuccess();
     }
-  })
+  });
 }
 // Hết Giỏ hàng
