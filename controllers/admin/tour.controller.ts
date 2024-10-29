@@ -44,6 +44,7 @@ export const create = async (req: Request, res: Response) => {
     categories: categories,
   });
 };
+
 // [POST] /admin/tours/create
 export const createPost = async (req: Request, res: Response) => {
   if (req.body.position) {
@@ -65,6 +66,7 @@ export const createPost = async (req: Request, res: Response) => {
     position: req.body.position,
     status: req.body.status,
     slug: slug,
+    images: JSON.stringify(req.body.images),
   };
   const tour = await Tour.create(dataTour);
   const tourId = tour.dataValues.id;
