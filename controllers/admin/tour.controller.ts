@@ -67,6 +67,8 @@ export const createPost = async (req: Request, res: Response) => {
     status: req.body.status,
     slug: slug,
     images: JSON.stringify(req.body.images),
+    information: req.body.information,
+    schedule: req.body.schedule,
   };
   const tour = await Tour.create(dataTour);
   const tourId = tour.dataValues.id;
