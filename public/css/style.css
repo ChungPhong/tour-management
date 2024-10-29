@@ -139,3 +139,14 @@
   cursor: pointer;
 }
 /* End Alert Add Cart success */
+
+/* .card */
+.card {
+  height: 100%;
+}
+.card img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+/* End .card */
