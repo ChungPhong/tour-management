@@ -58,3 +58,12 @@ export const index = async (req: Request, res: Response) => {
     orderCode: code,
   });
 };
+
+// [GET] /order/success/:orderCode
+export const success = async (req: Request, res: Response) => {
+  const orderCode = req.params.orderCode;
+  console.log(orderCode);
+  res.render("client/pages/order/success", {
+    pageTitle: "Đặt hàng thành công",
+  });
+};
